@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ram Charan Chirra — Interactive Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Fraunces:opsz,wght@8..144,700&display=swap" rel="stylesheet">
+  <meta name="description" content="Ram Charan Chirra — AI / ML student portfolio. Narrative-driven one page with animations (GSAP)." />
+  <style>
+    :root{
+      --bg:#0f1724; --card:#0b1220; --accent:#6ee7b7; --muted:#94a3b8; --glass: rgba(255,255,255,0.04);
+      --maxw:1100px; --radius:16px;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,#071021 0%, #081726 60%);color:#e6eef6}
+    a{color:var(--accent);text-decoration:none}
+    .wrap{max-width:var(--maxw);margin:40px auto;padding:28px}
+
+    /* Header / Nav */
+    header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:28px}
+    .brand{display:flex;gap:14px;align-items:center}
+    .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#5eead4);display:flex;align-items:center;justify-content:center;font-weight:800;color:#042022;font-family:'Fraunces';box-shadow:0 6px 18px rgba(0,0,0,0.6)}
+    nav{display:flex;gap:12px}
+    nav a{padding:10px 12px;border-radius:10px;color:var(--muted);font-weight:600}
+    nav a:hover{background:var(--glass);color:#fff}
+
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:center;padding:28px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border-radius:var(--radius);backdrop-filter: blur(6px);box-shadow:0 8px 30px rgba(2,6,23,0.6)}
+    .hero-left{padding-right:10px}
+    h1{font-family:'Fraunces';font-size:34px;margin:0 0 8px}
+    p.lead{color:var(--muted);margin:0 0 18px;line-height:1.45}
+    .cta{display:flex;gap:10px}
+    .btn{background:transparent;border:1px solid rgba(255,255,255,0.08);padding:10px 14px;border-radius:12px;font-weight:700;cursor:pointer}
+    .btn.primary{background:linear-gradient(90deg,var(--accent),#34d399);color:#042022;border: none}
+
+    .hero-right{display:flex;flex-direction:column;gap:12px;align-items:center}
+    .summary-card{width:100%;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:18px;border-radius:12px}
+    .summary-card p{margin:0;color:var(--muted);font-size:14px}
+
+    /* Sections */
+    section{margin-top:28px}
+    .section-title{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+    .section-title h2{margin:0;font-size:18px}
+    .line{height:1px;background:linear-gradient(90deg,transparent,var(--muted),transparent);flex:1}
+
+    /* Timeline */
+    .timeline{display:flex;flex-direction:column;gap:14px}
+    .tl-item{display:flex;gap:14px;align-items:flex-start;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);padding:14px;border-radius:12px}
+    .dot{width:12px;height:12px;border-radius:50%;background:var(--accent);flex:0 0 12px;margin-top:6px}
+    .tl-body h3{margin:0;font-size:15px}
+    .muted{color:var(--muted);font-size:13px}
+
+    /* Skills */
+    .skills{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+    .skill{background:var(--card);padding:12px;border-radius:12px}
+    .skill .bar{height:10px;background:rgba(255,255,255,0.04);border-radius:8px;margin-top:8px;overflow:hidden}
+    .skill .bar > i{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--accent),#34d399);border-radius:8px}
+
+    /* Projects */
+    .projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:14px;border-radius:12px;transition:transform .28s ease, box-shadow .28s ease}
+    .card:hover{transform:translateY(-8px);box-shadow:0 20px 40px rgba(2,6,23,0.6)}
+    .tag{display:inline-block;padding:6px 8px;border-radius:999px;background:rgba(255,255,255,0.03);font-size:12px;color:var(--muted)}
+
+    /* Contact */
+    .contact{display:flex;gap:16px;flex-wrap:wrap}
+    .contact .card{flex:1}
+    .contact .socials{display:flex;gap:12px;align-items:center}
+
+    footer{margin-top:28px;text-align:center;color:var(--muted);font-size:13px}
+
+    /* Responsive */
+    @media (max-width:900px){
+      .hero{grid-template-columns:1fr;}
+      nav{display:none}
+    }
+
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo">RC</div>
+        <div>
+          <div style="font-weight:800">Ram Charan Chirra</div>
+          <div class="muted" style="font-size:13px">B.Tech (AI & ML) — SR University • Warangal</div>
+        </div>
+      </div>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#timeline">Timeline</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="about">
+        <div class="hero-left">
+          <h1>Hi — I'm Ram Charan, a budding AI & ML engineer.</h1>
+          <p class="lead">I build data-driven solutions that transform noisy datasets into clear decisions. Currently pursuing B.Tech in Computer Science with specialization in AI & ML at SR University (2023–2027). I enjoy turning problems into models, and models into impact.</p>
+          <div class="cta">
+            <a class="btn primary" href="#projects">See my work</a>
+            <a class="btn" href="mailto:chirraramcharan@gmail.com">Email me</a>
+          </div>
+        </div>
+        <aside class="hero-right">
+          <div class="summary-card">
+            <p><strong>Contact</strong><br>Warangal • 9346468380<br><a href="mailto:chirraramcharan@gmail.com">chirraramcharan@gmail.com</a></p>
+            <hr style="border:none;border-top:1px solid rgba(255,255,255,0.03);margin:10px 0">
+            <p><strong>Quick facts</strong><br>Intern — Plasmid Innovation Limited<br>Spam News Detection (95% accuracy)<br>K-Means customer segmentation</p>
+          </div>
+          <div class="summary-card" style="text-align:center">
+            <p class="muted">Certs: Azure AI Fundamentals · Gen AI Data Analytics · Industrial Training</p>
+          </div>
+        </aside>
+      </section>
+
+      <section id="timeline">
+        <div class="section-title"><h2>Journey</h2><div class="line"></div></div>
+        <div class="timeline">
+          <div class="tl-item" data-when="2023 - 2027">
+            <div class="dot"></div>
+            <div class="tl-body">
+              <h3>B.Tech — Computer Science & Engineering (AI & ML)</h3>
+              <div class="muted">SR University — 2023 - 2027</div>
+              <p class="muted">Focused coursework and projects in machine learning, NLP, and data analysis.</p>
+            </div>
+          </div>
+
+          <div class="tl-item" data-when="Internship">
+            <div class="dot"></div>
+            <div class="tl-body">
+              <h3>Intern — Plasmid Innovation Limited</h3>
+              <div class="muted">Industrial Training & Internship</div>
+              <p class="muted">Worked on customer data segmentation (K-Means) and built a spam news detection system using NLP — achieved ~95% accuracy.</p>
+            </div>
+          </div>
+
+          <div class="tl-item" data-when="Virtual Internship">
+            <div class="dot"></div>
+            <div class="tl-body">
+              <h3>Virtual Internship — EduSkills (NIP)</h3>
+              <div class="muted">Practical training in data analytics & deployment concepts</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="skills">
+        <div class="section-title"><h2>Skills</h2><div class="line"></div></div>
+        <div class="skills">
+          <div class="skill">
+            <strong>Python</strong>
+            <div class="bar"><i data-value="95"></i></div>
+            <div class="muted" style="margin-top:8px">Pandas, NumPy, Scikit-Learn</div>
+          </div>
+          <div class="skill">
+            <strong>Machine Learning & NLP</strong>
+            <div class="bar"><i data-value="85"></i></div>
+            <div class="muted" style="margin-top:8px">Classification, Clustering, Text processing</div>
+          </div>
+          <div class="skill">
+            <strong>C</strong>
+            <div class="bar"><i data-value="60"></i></div>
+            <div class="muted" style="margin-top:8px">Problem-solving & algorithms</div>
+          </div>
+          <div class="skill">
+            <strong>Cloud & Tools</strong>
+            <div class="bar"><i data-value="65"></i></div>
+            <div class="muted" style="margin-top:8px">Azure AI Fundamentals, basic deployment</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="projects">
+        <div class="section-title"><h2>Projects</h2><div class="line"></div></div>
+        <div class="projects">
+          <article class="card" data-project="spam-news">
+            <h3>Spam News Detection System</h3>
+            <div class="muted">Python • Scikit-Learn • NLP</div>
+            <p>Built a classification pipeline to detect spam news articles. Feature engineering + TF-IDF + model tuning led to ~95% accuracy on validation data.</p>
+            <div style="margin-top:10px"><span class="tag">NLP</span> <span class="tag">Classification</span></div>
+          </article>
+
+          <article class="card" data-project="kmeans">
+            <h3>Customer Data Segmentation</h3>
+            <div class="muted">K-Means • Clustering • Exploratory Analysis</div>
+            <p>Implemented K-Means clustering to segment customer data and derive actionable marketing groups.</p>
+            <div style="margin-top:10px"><span class="tag">Clustering</span> <span class="tag">EDA</span></div>
+          </article>
+
+          <article class="card" data-project="genai">
+            <h3>Gen AI Data Analytics Simulation</h3>
+            <div class="muted">Microsoft • Simulation</div>
+            <p>Completed a Gen AI powered data analytics simulation focused on data-driven decision workflows.</p>
+            <div style="margin-top:10px"><span class="tag">GenAI</span> <span class="tag">Analytics</span></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="contact">
+        <div class="section-title"><h2>Contact</h2><div class="line"></div></div>
+        <div class="contact">
+          <div class="card">
+            <h3>Get in touch</h3>
+            <p class="muted">I'm open to internships, collaborations, and mentorships. Send a message and I'll reply quickly.</p>
+            <p style="margin-top:12px"><a class="btn primary" href="mailto:chirraramcharan@gmail.com">Email Ram</a></p>
+          </div>
+          <div class="card">
+            <h3>Profiles</h3>
+            <div class="socials">
+              <div>
+                <div class="muted">LinkedIn</div>
+                <a href="https://www.linkedin.com/in/chirra-ramcharan-119156295/" target="_blank">/in/chirra-ramcharan-119156295</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        © Ram Charan Chirra • Built with care • Warangal
+      </footer>
+    </main>
+  </div>
+
+  <!-- GSAP CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script>
+    // Register ScrollTrigger
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Hero entrance
+    gsap.from('.logo',{duration:0.8, y:-20, opacity:0, ease:'power3.out'});
+    gsap.from('h1',{duration:0.9, x:-30, opacity:0, delay:0.1, ease:'power3.out'});
+    gsap.from('.lead',{duration:0.9, x:-20, opacity:0, delay:0.15});
+    gsap.from('.summary-card',{duration:0.9, y:20, opacity:0, delay:0.2, stagger:0.08});
+
+    // Reveal sections on scroll
+    gsap.utils.toArray('section').forEach((sec)=>{
+      gsap.from(sec.querySelectorAll('.tl-item, .card, .skill, .projects > article, .summary-card, .bar, .section-title h2'), {
+        scrollTrigger:{trigger:sec, start:'top 80%'},
+        y:20, opacity:0, duration:0.7, stagger:0.08, ease:'power2.out'
+      });
+    });
+
+    // Timeline item hover micro interactions
+    document.querySelectorAll('.tl-item').forEach(item=>{
+      item.addEventListener('mouseenter',()=> gsap.to(item,{scale:1.02, boxShadow:'0 18px 40px rgba(2,6,23,0.5)', duration:0.3}));
+      item.addEventListener('mouseleave',()=> gsap.to(item,{scale:1, boxShadow:'none', duration:0.3}));
+    });
+
+    // Skill bars animation (reads data-value attribute)
+    document.querySelectorAll('.skill .bar > i').forEach((el)=>{
+      const val = el.getAttribute('data-value') || 70;
+      gsap.to(el,{width:val+'%', duration:1.2, ease:'power3.out', scrollTrigger:{trigger:el, start:'top 85%'}});
+    });
+
+    // Project cards hover
+    document.querySelectorAll('.card').forEach(card=>{
+      card.addEventListener('mouseenter',()=> gsap.to(card,{y:-6, duration:0.25}));
+      card.addEventListener('mouseleave',()=> gsap.to(card,{y:0, duration:0.25}));
+    });
+
+    // Smooth anchor scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        e.preventDefault();
+        const t = document.querySelector(a.getAttribute('href'));
+        if(t) t.scrollIntoView({behavior:'smooth', block:'start'});
+      });
+    });
+
+    // Small attention animation for contact CTA
+    gsap.to('.btn.primary',{y:-2, repeat:-1, yoyo:true, duration:2, ease:'sine.inOut', opacity:0.98});
+
+  </script>
+</body>
+</html>
